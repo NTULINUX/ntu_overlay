@@ -10,18 +10,15 @@ HOMEPAGE="https://llvm.org/"
 
 LICENSE="Apache-2.0-with-LLVM-exceptions UoI-NCSA"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~ppc-macos ~x64-macos"
-IUSE="
-	default-compiler-rt default-libcxx default-lld llvm-libunwind
-	hardened stricter
-"
+KEYWORDS="amd64 arm arm64 ppc ppc64 ~riscv sparc x86 ~amd64-linux ~ppc-macos ~x64-macos"
+IUSE="default-compiler-rt default-libcxx default-lld llvm-libunwind"
 
 PDEPEND="
 	sys-devel/clang:*
 	default-compiler-rt? (
 		sys-devel/clang-runtime[compiler-rt]
-		llvm-libunwind? ( sys-libs/llvm-libunwind )
-		!llvm-libunwind? ( sys-libs/libunwind )
+		llvm-libunwind? ( sys-libs/llvm-libunwind[static-libs] )
+		!llvm-libunwind? ( sys-libs/libunwind[static-libs] )
 	)
 	!default-compiler-rt? ( sys-devel/gcc )
 	default-libcxx? ( >=sys-libs/libcxx-${PV} )
@@ -87,46 +84,6 @@ src_install() {
 		@gentoo-runtimes.cfg
 		@gentoo-gcc-install.cfg
 	EOF
-
-	dodir /usr/include/gentoo
-
-	local fortify_level=$(usex hardened 3 1)
-	# We have to do this because glibc's headers warn if F_S is set
-	# without optimization and that would at the very least be very noisy
-	# during builds and at worst trigger many -Werror builds.
-	cat >> "${ED}/usr/include/gentoo/fortify.h" <<- EOF || die
-		#ifndef _FORTIFY_SOURCE
-			#if defined(__OPTIMIZE__) && __OPTIMIZE__ > 0
-				#define _FORTIFY_SOURCE ${fortify_level}
-			#endif
-		#endif
-	EOF
-
-	if use hardened ; then
-		cat >> "${ED}/etc/clang/gentoo-hardened.cfg" <<-EOF || die
-			-D_GLIBCXX_ASSERTIONS
-
-			# Analogue to GLIBCXX_ASSERTIONS
-			# https://libcxx.llvm.org/UsingLibcxx.html#assertions-mode
-			-D_LIBCPP_ENABLE_ASSERTIONS=1
-		EOF
-	fi
-
-	if use stricter; then
-		newins - gentoo-stricter.cfg <<-EOF
-			# This file increases the strictness of older clang versions
-			# to match the newest upstream version.
-
-			# clang-16 defaults
-			-Werror=implicit-function-declaration
-			-Werror=implicit-int
-			-Werror=incompatible-function-pointer-types
-		EOF
-
-		cat >> "${ED}/etc/clang/gentoo-common.cfg" <<-EOF || die
-			@gentoo-stricter.cfg
-		EOF
-	fi
 
 	local tool
 	for tool in clang{,++,-cpp}; do
