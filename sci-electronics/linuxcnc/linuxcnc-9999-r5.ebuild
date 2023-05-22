@@ -15,7 +15,7 @@ PYTHON_COMPAT=( python3_{8..11} )
 inherit desktop git-r3 python-single-r1 python-utils-r1 xdg-utils
 
 PATCHES=(
-	"${FILESDIR}/Makefile.patch"
+	"${FILESDIR}/no-ldconfig.patch"
 )
 
 DESCRIPTION="An open source CNC machine controller"
