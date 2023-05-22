@@ -12,23 +12,22 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
+# AOCC must be downloaded directly from AMD:
+# https://www.amd.com/en/developer/aocc.html
+#
+# Once finished and if you accept their EULA, place tarball in:
+# /var/cache/distfiles
+
 RESTRICT="bindist fetch mirror"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND=""
+DEPEND="${RDEPEND}"
 BDEPEND=""
 
 src_prepare() {
 	default
 
-	# QA fixes (Removes libalm/libamdlibm and ORC compiler-rt-sanitizer due to TEXTRELs, etc)
-	rm -f "${S}/lib/libalm."*
-	rm -f "${S}/lib/libamdlibm."*
-	rm -f "${S}/lib/clang/13.0.0/lib/linux/libclang_rt.orc-x86_64.a"
-	rm -f "${S}/lib/libdevice/libbc-hostrpc-amdgcn.a"
-
-	# Purge i386/IA-32 files
-	find "${S}" -name "*ia32*" -type f -delete
+	# Purge i386 files due to unresolved deps (keep the others)
 	find "${S}" -name "*i386*" -type f -delete
 }
 
@@ -36,16 +35,13 @@ src_install() {
 	dodir "/opt/aocc-compiler"
 
 	cp -aR "${S}/bin" "${D}/opt/aocc-compiler/"
-
 	cp -aR "${S}/lib" "${D}/opt/aocc-compiler/"
 	cp -aR "${S}/libexec" "${D}/opt/aocc-compiler/"
-
 	cp -aR "${S}/ompd" "${D}/opt/aocc-compiler/"
-
 	cp -aR "${S}/include" "${D}/opt/aocc-compiler/"
-
 	cp -aR "${S}/share" "${D}/opt/aocc-compiler/"
 
+	# Licenses
 	cp -aR "${S}/"*.TXT "${D}/opt/aocc-compiler/"
 	cp -aR "${S}/"*.pdf "${D}/opt/aocc-compiler/"
 }
