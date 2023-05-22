@@ -30,7 +30,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_impl_dep 'tk(+)')
 	$(python_gen_cond_dep '
-		>=dev-libs/boost-1.79[python,${PYTHON_USEDEP}]
+		dev-libs/boost[python,${PYTHON_USEDEP}]
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pyopengl[${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
