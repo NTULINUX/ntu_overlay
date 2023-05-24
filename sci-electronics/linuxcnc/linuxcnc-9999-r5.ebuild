@@ -14,10 +14,6 @@ PYTHON_COMPAT=( python3_{8..11} )
 
 inherit desktop git-r3 python-single-r1 python-utils-r1 xdg-utils
 
-PATCHES=(
-	"${FILESDIR}/no-ldconfig.patch"
-)
-
 DESCRIPTION="An open source CNC machine controller"
 HOMEPAGE="https://www.linuxcnc.org/"
 EGIT_REPO_URI="https://github.com/LinuxCNC/linuxcnc.git"
@@ -64,6 +60,9 @@ S="${S}/src"
 
 src_prepare() {
 	default
+
+	# Remove ldconfig from Makefile
+	sed -i '/ldconfig/d' "${S}/Makefile"
 
 	./autogen.sh || die
 }
