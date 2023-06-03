@@ -10,7 +10,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{10,11} )
 
 inherit desktop git-r3 python-single-r1 python-utils-r1 xdg-utils
 
@@ -60,6 +60,9 @@ S="${S}/src"
 
 src_prepare() {
 	default
+
+	# Fix build with Clang 16
+	sed -i 's#-Wl,--version-script,objects/\$\*.ver ##' "${S}/Makefile"
 
 	# Remove ldconfig from Makefile
 	sed -i '/ldconfig/d' "${S}/Makefile"
