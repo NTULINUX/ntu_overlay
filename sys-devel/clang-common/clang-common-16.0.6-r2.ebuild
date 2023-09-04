@@ -10,7 +10,7 @@ HOMEPAGE="https://llvm.org/"
 
 LICENSE="Apache-2.0-with-LLVM-exceptions UoI-NCSA"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 arm arm64 ~loong ppc ppc64 ~riscv sparc x86 ~amd64-linux ~ppc-macos ~x64-macos"
 IUSE="default-compiler-rt default-libcxx default-lld llvm-libunwind"
 
 PDEPEND="
@@ -21,7 +21,7 @@ PDEPEND="
 		!llvm-libunwind? ( sys-libs/libunwind[static-libs] )
 	)
 	!default-compiler-rt? ( sys-devel/gcc )
-	default-libcxx? ( >=sys-libs/libcxx-${PV} )
+	default-libcxx? ( >=sys-libs/libcxx-${PV}[static-libs] )
 	!default-libcxx? ( sys-devel/gcc )
 	default-lld? ( sys-devel/lld )
 	!default-lld? ( sys-devel/binutils )
@@ -83,6 +83,18 @@ src_install() {
 		# This file contains flags common to clang, clang++ and clang-cpp.
 		@gentoo-runtimes.cfg
 		@gentoo-gcc-install.cfg
+		# bug #870001
+		-include "${EPREFIX}/usr/include/gentoo/maybe-stddefs.h"
+	EOF
+
+	dodir /usr/include/gentoo
+
+	cat >> "${ED}/usr/include/gentoo/maybe-stddefs.h" <<-EOF || die
+	/* __has_include is an extension, but it's fine, because this is only
+	for Clang anyway. */
+	#if defined __has_include && __has_include (<stdc-predef.h>) && !defined(__GLIBC__)
+	# include <stdc-predef.h>
+	#endif
 	EOF
 
 	local tool
