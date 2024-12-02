@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # TODO:
@@ -10,13 +10,14 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10,11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit desktop git-r3 python-single-r1 python-utils-r1 xdg-utils
 
 DESCRIPTION="An open source CNC machine controller"
 HOMEPAGE="https://www.linuxcnc.org/"
 EGIT_REPO_URI="https://github.com/LinuxCNC/linuxcnc.git"
+EGIT_BRANCH="2.9"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -88,6 +89,7 @@ src_install()
 	local envd="${T}/99linuxcnc"
 	cat > "${envd}" <<-EOF
 		TCLLIBPATH="/usr/lib/tcltk/linuxcnc"
+		PYTHONPATH="${PYTHONPATH}:/usr/lib/python3/dist-packages"
 	EOF
 
 	doenvd "${envd}"
