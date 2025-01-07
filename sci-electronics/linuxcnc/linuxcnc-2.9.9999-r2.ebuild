@@ -17,6 +17,7 @@ inherit desktop git-r3 python-single-r1 python-utils-r1 xdg-utils
 DESCRIPTION="An open source CNC machine controller"
 HOMEPAGE="https://www.linuxcnc.org/"
 EGIT_REPO_URI="https://github.com/LinuxCNC/linuxcnc.git"
+EGIT_BRANCH="2.9"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -29,6 +30,7 @@ RDEPEND="
 		dev-libs/boost[python,${PYTHON_USEDEP}]
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pyopengl[${PYTHON_USEDEP}]
+		dev-python/qscintilla[${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
 	')
 	dev-lang/tcl
@@ -88,7 +90,7 @@ src_install()
 	local envd="${T}/99linuxcnc"
 	cat > "${envd}" <<-EOF
 		TCLLIBPATH="/usr/lib/tcltk/linuxcnc"
-		PYTHONPATH="${PYTHONPATH}:/usr/lib/python3/dist-packages"
+		PYTHONPATH="/usr/lib/python3/dist-packages"
 	EOF
 
 	doenvd "${envd}"
