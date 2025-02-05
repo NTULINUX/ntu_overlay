@@ -14,7 +14,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-electronics/linuxcnc"
+RDEPEND="
+	dev-python/pyqt6[designer]
+	sci-electronics/linuxcnc
+"
 DEPEND=""
 BDEPEND=""
 

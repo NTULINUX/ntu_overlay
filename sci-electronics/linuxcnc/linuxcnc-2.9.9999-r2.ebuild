@@ -30,7 +30,8 @@ RDEPEND="
 		dev-libs/boost[python,${PYTHON_USEDEP}]
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pyopengl[${PYTHON_USEDEP}]
-		dev-python/qscintilla[${PYTHON_USEDEP}]
+		dev-python/python-xlib[${PYTHON_USEDEP}]
+		dev-python/qscintilla[qt5,${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
 	')
 	dev-lang/tcl
@@ -49,6 +50,7 @@ RDEPEND="
 	virtual/libusb:1
 	virtual/opengl
 	x11-base/xorg-server
+	x11-libs/gtksourceview:4
 	x11-libs/libXinerama
 	x11-libs/gtk+:2
 	x11-libs/gtk+:3
