@@ -38,7 +38,16 @@ src_install() {
 	cp -ar "${S}/flexgui/src/libflexgui/"*.py "${D}/usr/lib/python3/dist-packages/libflexgui/"
 
 	dodir /usr/lib/libflexgui/examples
-	cp -ar "${S}/examples/"* "usr/lib/libflexgui/examples/"
+	cp -ar "${S}/examples/"* "${D}/usr/lib/libflexgui/examples/"
 
 	dodoc flexgui/FlexGUI-blackbg.png
+}
+
+pkg_postinst() {
+	ewarn "FlexGUI example configs are stored in:"
+	ewarn "/usr/lib/libflexgui/examples"
+	ewarn ""
+	ewarn "These may be copied into the LinuxCNC folder"
+	ewarn "in your home directory (assuming you have"
+	ewarn "already started a LinuxCNC sample config.)"
 }
