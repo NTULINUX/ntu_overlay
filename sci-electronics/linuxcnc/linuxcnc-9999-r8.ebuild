@@ -30,7 +30,6 @@ RDEPEND="
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pyopengl[${PYTHON_USEDEP}]
 		dev-python/python-xlib[${PYTHON_USEDEP}]
-		dev-python/qscintilla[qt5,${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
 	')
 	dev-lang/tcl
