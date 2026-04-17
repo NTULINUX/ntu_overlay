@@ -16,45 +16,42 @@ EGIT_REPO_URI="https://github.com/LinuxCNC/linuxcnc.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="qtpyvcp-deps"
 
 RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_impl_dep 'tk(+)')
 	$(python_gen_cond_dep '
-		dev-libs/boost[python,${PYTHON_USEDEP}]
+		dev-libs/boost[numpy,python,${PYTHON_USEDEP}]
+		dev-python/deepdiff[${PYTHON_USEDEP}]
+		dev-python/docopt[${PYTHON_USEDEP}]
 		dev-python/pygobject[${PYTHON_USEDEP}]
 		dev-python/pyopengl[${PYTHON_USEDEP}]
 		dev-python/python-xlib[${PYTHON_USEDEP}]
+		dev-python/pip[${PYTHON_USEDEP}]
+		dev-python/psutil[${PYTHON_USEDEP}]
+		dev-python/pyqtgraph[${PYTHON_USEDEP}]
+		dev-python/pyserial[${PYTHON_USEDEP}]
+		dev-python/pyside[dbus,designer,gui,multimedia,numpy,opengl,svg,tools,uitools,widgets,xml,${PYTHON_USEDEP}]
+		dev-python/pyudev[${PYTHON_USEDEP}]
+		dev-python/pyzmq[${PYTHON_USEDEP}]
+		dev-python/qscintilla[${PYTHON_USEDEP}]
+		dev-python/qtpy[dbus,designer,gui,multimedia,opengl,pyqt6,svg,widgets,xml,${PYTHON_USEDEP}]
+		dev-python/pyqt6[dbus,designer,gui,multimedia,opengl,svg,widgets,xml,${PYTHON_USEDEP}]
+		dev-python/simpleeval[${PYTHON_USEDEP}]
+		dev-python/sqlalchemy[${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
+		sci-libs/vtk[boost,imaging,python,qt6,rendering,tk,${PYTHON_SINGLE_USEDEP}]
 	')
-	qtpyvcp-deps? (
-		$(python_gen_cond_dep '
-			dev-python/deepdiff[${PYTHON_USEDEP}]
-			dev-python/docopt[${PYTHON_USEDEP}]
-			dev-python/pip[${PYTHON_USEDEP}]
-			dev-python/psutil[${PYTHON_USEDEP}]
-			dev-python/pyqtgraph[${PYTHON_USEDEP}]
-			dev-python/pyserial[${PYTHON_USEDEP}]
-			dev-python/pyside[designer,uitools,widgets,${PYTHON_USEDEP}]
-			dev-python/pyudev[${PYTHON_USEDEP}]
-			dev-python/pyzmq[${PYTHON_USEDEP}]
-			dev-python/qtpy[designer,pyqt6,widgets,${PYTHON_USEDEP}]
-			dev-python/simpleeval[${PYTHON_USEDEP}]
-			dev-python/sqlalchemy[${PYTHON_USEDEP}]
-			sci-libs/vtk[qt6,python,${PYTHON_SINGLE_USEDEP}]
-		')
-	)
 	dev-lang/tcl
 	dev-lang/tk
 	dev-libs/glib
+	dev-libs/libedit
 	dev-libs/libmodbus
 	dev-tcltk/blt
 	dev-tcltk/bwidget
 	dev-tcltk/tclx
 	sys-devel/gettext
 	sys-libs/ncurses
-	sys-libs/readline
 	sys-process/procps
 	sys-process/psmisc
 	virtual/libudev
@@ -64,6 +61,7 @@ RDEPEND="
 	x11-libs/gtksourceview:4
 	x11-libs/libXinerama
 	x11-libs/gtk+:3
+	x11-libs/qscintilla[designer]
 "
 DEPEND="${RDEPEND}
 	app-text/asciidoc
