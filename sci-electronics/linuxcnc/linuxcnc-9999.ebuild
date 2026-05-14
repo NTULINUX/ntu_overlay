@@ -99,7 +99,6 @@ src_install()
 	local envd="${T}/99linuxcnc"
 	cat > "${envd}" <<-EOF
 		TCLLIBPATH="/usr/lib/tcltk/linuxcnc"
-		PYTHONPATH="/usr/lib/python3/dist-packages"
 	EOF
 
 	doenvd "${envd}"
