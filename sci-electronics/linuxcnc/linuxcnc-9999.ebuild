@@ -7,7 +7,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{11..14} )
 
-inherit desktop git-r3 linux-info check-reqs python-single-r1 python-utils-r1 xdg-utils
+inherit desktop git-r3 linux-info check-reqs flag-o-matic python-single-r1 python-utils-r1 xdg-utils
 
 DESCRIPTION="An open source CNC machine controller"
 HOMEPAGE="https://www.linuxcnc.org/"
@@ -89,8 +89,13 @@ src_prepare() {
 	./autogen.sh || die
 }
 
-src_install()
-{
+src_configure() {
+	filter-lto
+
+	default
+}
+
+src_install() {
 	default
 
 	python_optimize
