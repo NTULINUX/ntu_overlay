@@ -48,7 +48,7 @@ src_install() {
 	dodoc flexgui/FlexGUI-blackbg.png
 	dodoc flexgui/flexgui.pdf
 
-	python_optimize "$(python_get_sitedir)/libflexgui"
+	python_optimize
 }
 
 pkg_postinst() {
