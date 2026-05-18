@@ -1,0 +1,26 @@
+From 94008d281558749e317b8d65b92a7efb044cb3ad Mon Sep 17 00:00:00 2001
+From: Alec Ari <neotheuser@ymail.com>
+Date: Mon, 18 May 2026 16:31:41 -0500
+Subject: Use Qt6
+
+Signed-off-by: Alec Ari <neotheuser@ymail.com>
+---
+ halviewer.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/halviewer.py b/halviewer.py
+index 7c220ad..f413aa2 100755
+--- a/halviewer.py
++++ b/halviewer.py
+@@ -22,7 +22,7 @@ parser.add_argument("--setup", "-s", help="setup file", type=str, default="")
+ parser.add_argument("--qt5", "-5", help="using pyqt5", default=False, action="store_true")
+ parser.add_argument("--qt6", "-6", help="using pyqt6", default=False, action="store_true")
+ args = parser.parse_args()
+-qtversion = "5"
++qtversion = "6"
+ if args.qt6:
+     qtversion = "6"
+ 
+-- 
+2.54.0
+
