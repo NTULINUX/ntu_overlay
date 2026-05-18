@@ -5,7 +5,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{11..14} )
 
-inherit git-r3 python-single-r1
+inherit desktop git-r3 python-single-r1 xdg-utils
 
 DESCRIPTION="A flexible GUI for LinuxCNC"
 HOMEPAGE="https://gnipsel.com/linuxcnc/flexgui/index.html"
@@ -30,20 +30,19 @@ src_install() {
 	dobin "${S}/flexgui/src/flexqss"
 	dobin "${S}/flexgui/src/flexdocs"
 
-	dodir /usr/share/applications/flexgui
-	cp -ar "${S}/flexgui/"*.desktop "${D}/usr/share/applications/flexgui"
+	domenu "${S}/flexgui/"*.desktop
 
-	dodir /usr/lib/libflexgui
-	cp -ar "${S}/flexgui/src/"*.ui "${D}/usr/lib/libflexgui/"
-	cp -ar "${S}/flexgui/src/libflexgui/"*.ui "${D}/usr/lib/libflexgui/"
-	cp -ar "${S}/flexgui/src/libflexgui/"*.qss "${D}/usr/lib/libflexgui/"
-	cp -ar "${S}/flexgui/src/libflexgui/"*.jpg "${D}/usr/lib/libflexgui/"
+	insinto /usr/lib/libflexgui
+	doins "${S}/flexgui/src/"*.ui
+	doins "${S}/flexgui/src/libflexgui/"*.ui
+	doins "${S}/flexgui/src/libflexgui/"*.qss
+	doins "${S}/flexgui/src/libflexgui/"*.jpg
 
 	insinto "$(python_get_sitedir)/libflexgui"
 	doins "${S}/flexgui/src/libflexgui/"*.py
 
-	dodir /usr/lib/libflexgui/examples
-	cp -ar "${S}/examples/"* "${D}/usr/lib/libflexgui/examples/"
+	insinto /usr/lib/libflexgui/examples
+	doins -r "${S}/examples/"*
 
 	dodoc flexgui/FlexGUI-blackbg.png
 	dodoc flexgui/flexgui.pdf
@@ -58,4 +57,14 @@ pkg_postinst() {
 	einfo "These may be copied into the LinuxCNC folder"
 	einfo "in your home directory (assuming you have"
 	einfo "already started a LinuxCNC sample config.)"
+
+	xdg_icon_cache_update
+	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
+	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 }
