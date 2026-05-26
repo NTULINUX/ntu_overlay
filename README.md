@@ -1,2 +1,2 @@
 # ntu_overlay
-NTU's Gentoo development playground
+NTU's custom Gentoo packages
