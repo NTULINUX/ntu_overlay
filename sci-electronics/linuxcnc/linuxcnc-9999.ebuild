@@ -66,6 +66,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	app-text/asciidoc
+	dev-ruby/asciidoctor
 "
 
 S_TOP="${S}"
