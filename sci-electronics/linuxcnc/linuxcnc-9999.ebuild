@@ -102,14 +102,6 @@ src_install() {
 
 	python_optimize
 
-	# Create environment required to start LinuxCNC
-	local envd="${T}/99linuxcnc"
-	cat > "${envd}" <<-EOF
-		TCLLIBPATH="/usr/lib/tcltk/linuxcnc"
-	EOF
-
-	doenvd "${envd}"
-
 	# Install menus and icons (don't know how to make CNC category in menu)
 	doicon "${S_TOP}/debian/extras/usr/share/icons/hicolor/scalable/apps/${PN}-logo.svg"
 	doicon "${S_TOP}/debian/extras/usr/share/icons/hicolor/scalable/apps/${PN}icon.svg"
