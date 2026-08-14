@@ -18,7 +18,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
-		sci-electronics/linuxcnc[${PYTHON_SINGLE_USEDEP}]
+		sci-electronics/linuxcnc-flexgui[${PYTHON_SINGLE_USEDEP}]
 	')
 "
 DEPEND="${RDEPEND}"

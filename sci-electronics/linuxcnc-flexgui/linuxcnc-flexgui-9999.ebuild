@@ -12,6 +12,7 @@ inherit desktop git-r3 linux-info check-reqs flag-o-matic python-single-r1 pytho
 DESCRIPTION="An open source CNC machine controller"
 HOMEPAGE="https://www.linuxcnc.org/"
 EGIT_REPO_URI="https://github.com/LinuxCNC/linuxcnc.git"
+EGIT_COMMIT="1313b7e5a4d6fa29fa22b118d1d8bdedc3b3b4e7"
 
 LICENSE="GPL-2"
 SLOT="0"
