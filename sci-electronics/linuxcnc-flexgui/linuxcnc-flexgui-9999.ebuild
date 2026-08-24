@@ -19,6 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
+	!sci-electronics/linuxcnc
 	${PYTHON_DEPS}
 	$(python_gen_impl_dep 'tk(+)')
 	$(python_gen_cond_dep '
