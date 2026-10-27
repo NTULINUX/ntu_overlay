@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit git-r3 python-single-r1 python-utils-r1
 
@@ -23,10 +23,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		dev-python/graphviz[${PYTHON_USEDEP}]
-		|| (
-			sci-electronics/linuxcnc[${PYTHON_SINGLE_USEDEP}]
-			sci-electronics/linuxcnc-flexgui[${PYTHON_SINGLE_USEDEP}]
-		)
+		sci-electronics/linuxcnc[${PYTHON_SINGLE_USEDEP}]
 	')
 "
 DEPEND="${RDEPEND}"

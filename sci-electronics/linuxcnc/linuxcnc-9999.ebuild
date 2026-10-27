@@ -5,7 +5,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit desktop git-r3 linux-info check-reqs flag-o-matic python-single-r1 python-utils-r1 xdg-utils
 
@@ -18,7 +18,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	!sci-electronics/linuxcnc-flexgui
 	${PYTHON_DEPS}
 	$(python_gen_impl_dep 'tk(+)')
 	$(python_gen_cond_dep '
@@ -33,6 +32,7 @@ RDEPEND="
 		dev-python/pyqtgraph[${PYTHON_USEDEP}]
 		dev-python/pyserial[${PYTHON_USEDEP}]
 		dev-python/pyside[dbus,designer,gui,multimedia,numpy,opengl,svg,tools,uitools,widgets,xml,${PYTHON_USEDEP}]
+		dev-python/python-dateutil[${PYTHON_USEDEP}]
 		dev-python/python-xlib[${PYTHON_USEDEP}]
 		dev-python/pyudev[${PYTHON_USEDEP}]
 		dev-python/pyzmq[${PYTHON_USEDEP}]
@@ -41,7 +41,6 @@ RDEPEND="
 		dev-python/simpleeval[${PYTHON_USEDEP}]
 		dev-python/sqlalchemy[${PYTHON_USEDEP}]
 		dev-python/yapps2[${PYTHON_USEDEP}]
-		sci-libs/vtk[boost,imaging,python,qt6,rendering,tk,${PYTHON_SINGLE_USEDEP}]
 	')
 	dev-lang/tcl
 	dev-lang/tk
